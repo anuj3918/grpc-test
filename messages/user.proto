@@ -1,0 +1,57 @@
+// command for generating the stub file
+// make current working directory as */go/src/grpc-test and then run the below command
+// protoc -I messages user.proto --go_out=plugins=grpc:messages
+
+syntax = "proto3";
+
+option go_package = "/pb";
+
+package messages;
+
+import "google/protobuf/struct.proto";
+
+service UserService {
+    rpc Get (GetRequest) returns (GetResponse) {}
+    rpc SendJson (SendJsonRequest) returns (SendJsonResponse) {}
+    rpc SendJsonString (SendJsonStringRequest) returns (SendJsonStringResponse) {}
+    rpc Set (User.SetRequest) returns (User.SetResponse) {}
+}
+
+// Flat messages
+message GetRequest {
+    string UserID = 1;
+}
+
+message GetResponse {
+    bytes Details = 1;
+}
+
+message SendJsonRequest {
+    string UserID = 1;
+    google.protobuf.Struct Details = 2;
+}
+
+message SendJsonResponse {
+    string Details = 1;
+}
+
+message SendJsonStringRequest {
+    string Details = 1;
+}
+
+message SendJsonStringResponse {
+    string Details = 1;
+}
+
+// Nested messages
+message User {
+    message SetRequest {
+        string UserID = 1;
+        bytes Details = 2;
+    }
+
+    message SetResponse {
+        bool status = 1;
+        bytes Details = 2;
+    }
+}

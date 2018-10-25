@@ -1,0 +1,22 @@
+// command for generating the stub file
+// make current working directory as */go/src/grpc-test and then run the below command
+// protoc -I messages user.proto --go_out=plugins=grpc:messages
+
+syntax = "proto3";
+
+option go_package = "/pb";
+
+package messages;
+
+service ItemService {
+    rpc Get (GetItemRequest) returns (GetItemResponse) {}
+}
+
+// Flat messages
+message GetItemRequest {
+    string UserID = 1;
+}
+
+message GetItemResponse {
+    bytes Details = 1;
+}
